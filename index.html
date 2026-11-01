@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zain Ul Abideen & Tahreem Fatima - Wedding Invitation</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+:root{--rose:#c97b8b;--wine:#8a2f45;--blush:#f7e9ec;--ink:#3b2a30;--gold:#d9b46c;--night:#16213a}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Cormorant Garamond",Georgia,serif;color:var(--ink);background:var(--blush);font-size:19px;line-height:1.55;overflow-x:hidden}
+body.locked{overflow:hidden;height:100vh}
+.script{font-family:"Pinyon Script","Brush Script MT",cursive;font-weight:400}
+section{padding:72px 24px;text-align:center;max-width:560px;margin:0 auto}
+h2{font-family:"Pinyon Script",cursive;font-weight:400;font-size:2.6rem;color:var(--wine);margin-bottom:18px}
+.small{font-size:.95rem;opacity:.8}
+h2.big{font-size:3.4rem;line-height:1.1}
+
+/* ---------- Envelope intro ---------- */
+#env{position:fixed;inset:0;z-index:50;background:#e7b4be;display:flex;align-items:center;justify-content:center;transition:opacity .8s ease .9s,visibility 0s 1.7s}
+#env.done{opacity:0;visibility:hidden}
+.card{position:relative;width:min(82vw,380px);aspect-ratio:3/4;background:linear-gradient(160deg,#e9a9b5,#d98b9c);border-radius:6px;box-shadow:0 24px 50px rgba(90,20,40,.35);perspective:900px}
+.card:before{content:"";position:absolute;inset:14px;border:1px solid rgba(255,255,255,.55)}
+.flap{position:absolute;left:0;right:0;top:0;height:58%;background:linear-gradient(180deg,#dc92a2,#c9768a);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .9s cubic-bezier(.5,0,.2,1);z-index:2}
+#env.open .flap{transform:rotateX(180deg)}
+.seal{position:absolute;left:50%;top:58%;width:76px;height:76px;margin:-38px 0 0 -38px;border:0;border-radius:50%;z-index:3;background:radial-gradient(circle at 35% 30%,#f0d08a,#b88a36);color:#6b4a14;font-family:"Pinyon Script",cursive;font-size:1.7rem;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.35),inset 0 0 0 5px rgba(255,255,255,.18);animation:pulse 2s infinite}
+#env.open .seal{opacity:0;transform:scale(.6);transition:.4s;animation:none}
+@keyframes pulse{50%{transform:scale(1.08)}}
+.tap{position:absolute;bottom:11%;left:0;right:0;text-align:center;color:#fff;font-style:italic;letter-spacing:.05em}
+#env.open .tap{opacity:0}
+.names-mini{position:absolute;top:8%;left:0;right:0;padding:0 22px;text-align:center;color:#fff;font-family:"Pinyon Script",cursive;font-size:1.45rem;line-height:1.25}
+
+/* ---------- Hero ---------- */
+.hero{max-width:none;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#fff;
+background:radial-gradient(ellipse 60% 40% at 50% 0,rgba(255,200,170,.35),transparent),linear-gradient(180deg,#23345a,var(--night) 60%,#0e1526)}
+.hero .arch{width:min(88vw,340px);padding:48px 16px 40px;border:1px solid rgba(217,180,108,.6);border-radius:200px 200px 0 0;background:rgba(255,255,255,.04)}
+.hero .intro{font-style:italic;opacity:.85}
+.hero .n{font-size:2.9rem;line-height:1.15;color:#fff}
+.hero .amp{color:var(--gold);font-size:1.6rem;display:block}
+.hero .when{margin-top:16px;letter-spacing:.2em;text-transform:uppercase;font-size:.85rem;color:var(--gold)}
+.hint{position:absolute;bottom:28px;font-size:.85rem;opacity:.7;animation:bob 2s infinite}
+@keyframes bob{50%{transform:translateY(6px)}}
+
+/* ---------- Scratch ---------- */
+.scratch-wrap{position:relative;width:260px;height:240px;margin:24px auto 0;touch-action:none}
+.under,.scratch-wrap canvas{position:absolute;inset:0;width:100%;height:100%}
+.under{display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:20px}
+.under b{font-family:"Pinyon Script",cursive;font-size:1.6rem;color:var(--wine);font-weight:400}
+.under span{font-size:1.15rem}
+.scratch-wrap canvas{transition:opacity .8s;cursor:grab}
+.scratch-wrap.revealed canvas{opacity:0;pointer-events:none}
+.petal{position:fixed;top:-20px;width:12px;height:16px;background:var(--rose);border-radius:80% 0 80% 0;opacity:.85;pointer-events:none;z-index:40;animation:fall linear forwards}
+@keyframes fall{to{transform:translate(var(--dx),110vh) rotate(540deg);opacity:.2}}
+
+/* ---------- Countdown ---------- */
+.count{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.count div{background:#fff;border-radius:10px;padding:14px 4px;box-shadow:0 3px 10px rgba(138,47,69,.12)}
+.count b{display:block;font-size:2rem;color:var(--wine);font-weight:600;line-height:1}
+.count span{font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;opacity:.7}
+
+/* ---------- Timeline ---------- */
+.tl{text-align:left;border-left:3px solid var(--rose);margin:10px 0 0 14px;padding-left:24px}
+.tl li{list-style:none;position:relative;background:#fff;border-radius:16px;padding:22px 20px;margin-bottom:22px;box-shadow:0 4px 16px rgba(138,47,69,.15)}
+.tl li:before{content:"";position:absolute;left:-35px;top:26px;width:18px;height:18px;border-radius:50%;background:var(--wine);box-shadow:0 0 0 4px var(--blush)}
+.tl h3{font-size:2.2rem;font-weight:700;color:var(--wine);line-height:1.1;margin-bottom:6px}
+.tl time{display:block;font-size:1.2rem;font-weight:700;color:var(--ink);margin-bottom:6px}
+.tl .small{font-size:1.1rem;opacity:.9}
+
+/* ---------- Buttons / info ---------- */
+.btn{display:inline-block;margin-top:16px;padding:12px 26px;border-radius:30px;background:var(--wine);color:#fff;text-decoration:none;font-weight:600;letter-spacing:.04em;border:0;font:inherit;font-weight:600;cursor:pointer}
+.btn:focus-visible,.seal:focus-visible,#music:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.info{background:#fff;border-radius:14px;padding:28px 22px;box-shadow:0 3px 14px rgba(138,47,69,.1)}
+.vl{font-size:1.15rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--wine);margin-bottom:4px}
+#music{position:fixed;right:14px;top:14px;z-index:45;width:42px;height:42px;border-radius:50%;border:0;background:rgba(255,255,255,.85);color:var(--wine);font-size:1.1rem;cursor:pointer;display:none}
+footer{padding:40px 24px 60px;text-align:center}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}}
+</style>
+</head>
+<body class="locked">
+
+<button id="music" aria-label="Toggle music">♪</button>
+<audio id="audio" loop preload="none"></audio>
+
+<!-- Envelope -->
+<div id="env">
+  <div class="card">
+    <div class="names-mini" id="miniNames"></div>
+    <div class="flap"></div>
+    <button class="seal" id="seal" aria-label="Open invitation">Z&amp;T</button>
+    <div class="tap">Tap the seal to open</div>
+  </div>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="arch">
+    <p class="intro">We are delighted to invite you to the wedding of</p>
+    <h1 class="script n" id="groom"></h1>
+    <span class="script amp">and</span>
+    <h1 class="script n" id="bride"></h1>
+    <p class="when" id="dateTop"></p>
+  </div>
+  <div class="hint">Scroll down ↓</div>
+</section>
+
+<!-- Scratch to reveal -->
+<section>
+  <h2 class="big">Scratch to reveal</h2>
+  <p class="small" style="font-size:1.2rem">Use your finger to uncover our date</p>
+  <div class="scratch-wrap" id="sw">
+    <div class="under"><b>Save the date</b><span id="dateBig"></span><span class="small" id="timeBig"></span></div>
+    <canvas id="cv" width="520" height="480"></canvas>
+  </div>
+</section>
+
+<!-- Countdown -->
+<section>
+  <h2>Counting down</h2>
+  <div class="count">
+    <div><b id="d">0</b><span>Days</span></div>
+    <div><b id="h">0</b><span>Hours</span></div>
+    <div><b id="m">0</b><span>Min</span></div>
+    <div><b id="s">0</b><span>Sec</span></div>
+  </div>
+</section>
+
+<!-- Timeline -->
+<section>
+  <h2>Program timeline</h2>
+  <ul class="tl" id="tl"></ul>
+</section>
+
+<!-- Venue -->
+<section>
+  <h2>Venues</h2>
+  <div id="venues"></div>
+</section>
+
+<!-- Details -->
+<section>
+  <h2>From our hearts</h2>
+  <div class="info"><p id="note"></p></div>
+</section>
+<section style="padding-top:0">
+  <h2>Accommodation</h2>
+  <div class="info"><p id="stay"></p></div>
+</section>
+<section style="padding-top:0">
+  <h2>Gifts</h2>
+  <div class="info"><p id="gifts"></p></div>
+</section>
+
+<footer>
+  <h2>Will you join us?</h2>
+  <a class="btn" id="rsvp" target="_blank" rel="noopener">RSVP on WhatsApp</a>
+  <p class="small" style="margin-top:28px;font-size:1.3rem" id="foot"></p>
+</footer>
+
+<script>
+/* ===== EDIT ONLY THIS PART FOR EACH CLIENT ===== */
+const C = {
+  groom: "Zain Ul Abideen",
+  bride: "Tahreem Fatima",
+  date: "2026-11-13T12:00:00",          // countdown target (Barat)
+  dateText: "13 & 14 November 2026",
+  timeText: "Barat 13th, Walima 14th",
+  venues: [
+    { label: "Barat", name: "Grand Marquee", address: "Vehari, Punjab, Pakistan",
+      maps: "https://www.google.com/maps/search/?api=1&query=Grand+Marquee+Vehari" },
+    { label: "Walima", name: "Taj Mahal Marquee", address: "Vehari, Punjab, Pakistan",
+      maps: "https://www.google.com/maps/search/?api=1&query=Taj+Mahal+Marquee+Vehari" }
+  ],
+  whatsapp: "923087236223",              // country code + number, no + or spaces
+  music: "",                             // optional: "song.mp3" in the same folder
+  events: [
+    ["Friday, 13 November · 12:00 PM – 2:00 PM", "Barat", "Barat at Grand Marquee, Vehari"],
+    ["Saturday, 14 November · 12:00 PM – 3:00 PM", "Walima", "Walima at Taj Mahal Marquee, Vehari"]
+  ],
+  note: "Come with your brightest smiles and warmest duas. Every moment will be sweeter with you by our side.",
+  stay: "We have arranged comfortable rooms for our out-of-town guests. Just let us know when you are coming, and we will take care of the rest.",
+  gifts: "Your presence is the biggest gift of all. Just come, bless us with your duas, and make our days truly special.",
+  signoff: "Adeel Hussain & family"
+};
+/* ================================================= */
+
+const $ = id => document.getElementById(id);
+document.title = C.groom + " & " + C.bride + " - Wedding Invitation";
+$("miniNames").textContent = C.groom + " & " + C.bride;
+$("seal").textContent = C.groom[0] + "&" + C.bride[0];
+$("groom").textContent = C.groom; $("bride").textContent = C.bride;
+$("dateTop").textContent = C.dateText;
+$("dateBig").textContent = C.dateText; $("timeBig").textContent = C.timeText;
+$("venues").innerHTML = C.venues.map(v =>
+  `<div class="info" style="margin-bottom:16px"><p class="vl">${v.label}</p>
+   <h3 style="font-size:2rem;line-height:1.2;font-weight:700;color:var(--wine)">${v.name}</h3><p style="font-size:1.1rem">${v.address}</p>
+   <a class="btn" href="${v.maps}" target="_blank" rel="noopener">View on Google Maps</a></div>`).join("");
+$("note").textContent = C.note; $("stay").textContent = C.stay; $("gifts").textContent = C.gifts;
+$("foot").textContent = "With love, " + C.signoff;
+$("rsvp").href = "https://wa.me/" + C.whatsapp + "?text=" +
+  encodeURIComponent("Assalamualaikum! I will be attending " + C.groom + " & " + C.bride + "'s wedding.");
+$("tl").innerHTML = C.events.map(e =>
+  `<li><h3>${e[1]}</h3><time>${e[0]}</time><p class="small">${e[2]}</p></li>`).join("");
+
+/* Envelope */
+$("seal").addEventListener("click", () => {
+  $("env").classList.add("open");
+  setTimeout(() => { $("env").classList.add("done"); document.body.classList.remove("locked"); startMusic(); }, 1100);
+});
+
+/* Music */
+const audio = $("audio"), mbtn = $("music");
+if (C.music) { audio.src = C.music; mbtn.style.display = "block"; }
+function startMusic(){ if (C.music) audio.play().then(() => mbtn.textContent = "♪").catch(() => mbtn.textContent = "✕"); }
+mbtn.onclick = () => { if (audio.paused) { audio.play(); mbtn.textContent = "♪"; } else { audio.pause(); mbtn.textContent = "✕"; } };
+
+/* Countdown */
+function tick(){
+  let t = Math.max(0, new Date(C.date) - new Date()) / 1000;
+  $("d").textContent = Math.floor(t / 86400);
+  $("h").textContent = Math.floor(t % 86400 / 3600);
+  $("m").textContent = Math.floor(t % 3600 / 60);
+  $("s").textContent = Math.floor(t % 60);
+}
+tick(); setInterval(tick, 1000);
+
+/* Scratch heart */
+const cv = $("cv"), ctx = cv.getContext("2d"), W = cv.width, H = cv.height;
+function heart(c){
+  c.beginPath();
+  c.moveTo(W/2, H*0.92);
+  c.bezierCurveTo(W*0.02, H*0.58, W*0.06, H*0.08, W/2, H*0.28);
+  c.bezierCurveTo(W*0.94, H*0.08, W*0.98, H*0.58, W/2, H*0.92);
+  c.closePath();
+}
+const g = ctx.createLinearGradient(0, 0, W, H);
+g.addColorStop(0, "#e8a0b0"); g.addColorStop(.5, "#b23b5c"); g.addColorStop(1, "#d97b94");
+heart(ctx); ctx.fillStyle = g; ctx.fill();
+for (let i = 0; i < 1400; i++) {            // glitter
+  const x = Math.random() * W, y = Math.random() * H;
+  if (ctx.isPointInPath(x, y)) { ctx.fillStyle = `rgba(255,255,255,${Math.random()*.5})`; ctx.fillRect(x, y, 2, 2); }
+}
+ctx.globalCompositeOperation = "destination-out";
+let down = false, moves = 0;
+function scratch(e){
+  if (!down) return;
+  const r = cv.getBoundingClientRect(), p = e.touches ? e.touches[0] : e;
+  ctx.beginPath();
+  ctx.arc((p.clientX - r.left) * W / r.width, (p.clientY - r.top) * H / r.height, 26, 0, 7);
+  ctx.fill();
+  if (++moves % 12 === 0) check();
+}
+function check(){
+  const d = ctx.getImageData(0, 0, W, H).data; let seen = 0, total = 0;
+  for (let i = 3; i < d.length; i += 160) { total++; if (d[i] > 0) seen++; }
+  if (seen / total < 0.55) reveal();        // roughly 45% of heart cleared
+}
+let done = false;
+function reveal(){
+  if (done) return; done = true;
+  $("sw").classList.add("revealed");
+  for (let i = 0; i < 40; i++) {
+    const p = document.createElement("i"); p.className = "petal";
+    p.style.left = Math.random() * 100 + "vw";
+    p.style.setProperty("--dx", (Math.random() * 120 - 60) + "px");
+    p.style.animationDuration = 4 + Math.random() * 4 + "s";
+    p.style.animationDelay = Math.random() * 1.5 + "s";
+    document.body.appendChild(p); setTimeout(() => p.remove(), 10000);
+  }
+}
+cv.addEventListener("mousedown", e => { down = true; scratch(e); });
+addEventListener("mouseup", () => down = false);
+cv.addEventListener("mousemove", scratch);
+cv.addEventListener("touchstart", e => { down = true; scratch(e); }, {passive: true});
+cv.addEventListener("touchmove", e => { e.preventDefault(); scratch(e); }, {passive: false});
+cv.addEventListener("touchend", () => down = false);
+</script>
+</body>
+</html>
